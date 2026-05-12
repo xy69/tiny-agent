@@ -1,0 +1,21 @@
+{
+  "compilerOptions": {
+    "strict": true,
+    "target": "ESNext",
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "verbatimModuleSyntax": true,
+    "erasableSyntaxOnly": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "resolveJsonModule": true,
+    "noEmit": true,
+    "types": ["bun"],
+    "paths": {
+      "@xy69/tiny-agent": ["./packages/core/src/index.ts"],
+      "@xy69/tiny-agent/session": ["./packages/session/src/index.ts"],
+      "@xy69/tiny-agent/providers": ["./packages/providers/index.ts"],
+      "@xy69/tiny-agent/extensions": ["./packages/extensions/index.ts"]
+    }
+  }
+}

@@ -1,0 +1,5 @@
+export { toolsExtension } from './tools/src/index'
+export { compactionExtension } from './compaction/src/index'
+export { loopDetectionExtension } from './loop-detection/src/index'
+export { taskExtension } from './task/src/index'
+export type { CompactableStore } from './compaction/src/index'

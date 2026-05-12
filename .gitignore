@@ -1,0 +1,7 @@
+node_modules/
+dist/
+*.tsbuildinfo
+.sessions/
+
+# Local config (contains API keys)
+agent.config.json
