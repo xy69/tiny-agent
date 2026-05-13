@@ -1,0 +1,48 @@
+{
+  "name": "@xy69/tiny-agent",
+  "version": "0.1.1",
+  "description": "Tiny, extensible AI agent.",
+  "type": "module",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/xy69/tiny-agent"
+  },
+  "keywords": ["ai", "agent", "llm", "coding-agent", "openai", "anthropic", "tools"],
+  "exports": {
+    ".": {
+      "types": "./dist/core.d.mts",
+      "default": "./dist/core.mjs"
+    },
+    "./session": {
+      "types": "./dist/session.d.mts",
+      "default": "./dist/session.mjs"
+    },
+    "./providers": {
+      "types": "./dist/providers.d.mts",
+      "default": "./dist/providers.mjs"
+    },
+    "./extensions": {
+      "types": "./dist/extensions.d.mts",
+      "default": "./dist/extensions.mjs"
+    }
+  },
+  "peerDependencies": {
+    "@anthropic-ai/sdk": "^0.95.2",
+    "openai": "^6.37.0"
+  },
+  "peerDependenciesMeta": {
+    "@anthropic-ai/sdk": { "optional": true },
+    "openai": { "optional": true }
+  },
+  "devDependencies": {
+    "@types/bun": "catalog:",
+    "tsdown": "catalog:",
+    "typescript": "catalog:"
+  },
+  "scripts": {
+    "build": "tsdown",
+    "typecheck": "tsc --noEmit"
+  },
+  "files": ["dist"]
+}
