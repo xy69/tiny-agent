@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.1.4 (2026-05-13)
+
+### Docs
+
+- Added package README with extension API docs, usage examples, and built-in extension reference.
+- Added repository README with architecture overview, development commands, and examples guide.
+
 ## 0.1.2 (2026-05-13)
 
 ### Features
