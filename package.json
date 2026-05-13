@@ -10,10 +10,26 @@
   },
   "keywords": ["ai", "agent", "llm", "coding-agent", "openai", "anthropic", "tools"],
   "exports": {
-    ".": "./packages/core/src/index.ts",
-    "./session": "./packages/session/src/index.ts",
-    "./providers": "./packages/providers/index.ts",
-    "./extensions": "./packages/extensions/index.ts"
+    ".": {
+      "bun": "./packages/core/src/index.ts",
+      "types": "./dist/core.d.mts",
+      "default": "./dist/core.mjs"
+    },
+    "./session": {
+      "bun": "./packages/session/src/index.ts",
+      "types": "./dist/session.d.mts",
+      "default": "./dist/session.mjs"
+    },
+    "./providers": {
+      "bun": "./packages/providers/index.ts",
+      "types": "./dist/providers.d.mts",
+      "default": "./dist/providers.mjs"
+    },
+    "./extensions": {
+      "bun": "./packages/extensions/index.ts",
+      "types": "./dist/extensions.d.mts",
+      "default": "./dist/extensions.mjs"
+    }
   },
   "workspaces": {
     "packages": [
@@ -26,6 +42,7 @@
       "typescript": "^6.0.3",
       "@types/bun": "^1.3.13",
       "prettier": "^3.8.3",
+      "tsdown": "^0.22.0",
       "@anthropic-ai/sdk": "^0.95.2",
       "openai": "^6.37.0"
     }
@@ -35,14 +52,22 @@
     "openai": "catalog:"
   },
   "devDependencies": {
-    "typescript": "catalog:",
     "@types/bun": "catalog:",
-    "prettier": "catalog:"
+    "prettier": "catalog:",
+    "tsdown": "catalog:",
+    "typescript": "catalog:"
   },
   "scripts": {
+    "build": "tsdown",
     "dev": "bun run packages/examples/cli/src/index.ts",
     "dev:web": "bun run packages/examples/web/src/server.ts",
     "typecheck": "bun run --filter '*' typecheck",
     "format": "prettier --write \"packages/**/*.ts\""
-  }
+  },
+  "files": [
+    "dist",
+    "packages/*/src",
+    "packages/providers",
+    "packages/extensions"
+  ]
 }

@@ -1,7 +1,7 @@
 import type { Extension, Tool } from '@xy69/tiny-agent'
 import { readFile } from 'fs/promises'
 import { resolve } from 'path'
-import { Glob } from 'bun'
+import { spawn } from 'child_process'
 
 const MAX_OUTPUT = 50_000
 
@@ -251,6 +251,30 @@ function longestCommonSubstring(a: string, b: string): number {
   return max
 }
 
+function execCommand(
+  args: string[],
+  timeout: number
+): Promise<{ stdout: string; stderr: string; exitCode: number }> {
+  return new Promise((resolve, reject) => {
+    const proc = spawn(args[0], args.slice(1), {
+      stdio: ['ignore', 'pipe', 'pipe'],
+      timeout,
+    })
+    const chunks: Buffer[] = []
+    const errChunks: Buffer[] = []
+    proc.stdout!.on('data', (d) => chunks.push(d))
+    proc.stderr!.on('data', (d) => errChunks.push(d))
+    proc.on('error', reject)
+    proc.on('close', (code) => {
+      resolve({
+        stdout: Buffer.concat(chunks).toString(),
+        stderr: Buffer.concat(errChunks).toString(),
+        exitCode: code ?? 1,
+      })
+    })
+  })
+}
+
 const bashTool: Tool = {
   definition: {
     name: 'bash',
@@ -271,16 +295,10 @@ const bashTool: Tool = {
     const command = input.command as string
     const timeout = (input.timeout as number) || 30_000
     try {
-      const proc = Bun.spawn(['sh', '-c', command], {
-        stdout: 'pipe',
-        stderr: 'pipe',
-        timeout,
-      })
-      const [stdout, stderr] = await Promise.all([
-        new Response(proc.stdout).text(),
-        new Response(proc.stderr).text(),
-      ])
-      const exitCode = await proc.exited
+      const { stdout, stderr, exitCode } = await execCommand(
+        ['sh', '-c', command],
+        timeout
+      )
       let output = ''
       if (stdout) output += stdout
       if (stderr) output += (output ? '\n' : '') + `[stderr]: ${stderr}`
@@ -317,12 +335,39 @@ const globTool: Tool = {
     const pattern = input.pattern as string
     const cwd = (input.path as string) || process.cwd()
     try {
-      const glob = new Glob(pattern)
+      const { readdir, stat } = await import('fs/promises')
+      const { join, relative } = await import('path')
+
       const matches: string[] = []
-      for await (const file of glob.scan({ cwd, dot: false })) {
-        matches.push(file)
-        if (matches.length >= 500) break
+
+      function matchGlob(filepath: string, pat: string): boolean {
+        // Convert glob to regex
+        const regexStr = pat
+          .replace(/\*\*/g, '{{GLOBSTAR}}')
+          .replace(/\*/g, '[^/]*')
+          .replace(/\?/g, '[^/]')
+          .replace(/\{\{GLOBSTAR\}\}/g, '.*')
+        return new RegExp(`^${regexStr}$`).test(filepath)
       }
+
+      async function walk(dir: string) {
+        if (matches.length >= 500) return
+        const items = await readdir(dir)
+        for (const item of items) {
+          if (matches.length >= 500) return
+          if (item.startsWith('.') || item === 'node_modules') continue
+          const full = join(dir, item)
+          const rel = relative(cwd, full)
+          const s = await stat(full)
+          if (s.isDirectory()) {
+            await walk(full)
+          } else if (matchGlob(rel, pattern)) {
+            matches.push(rel)
+          }
+        }
+      }
+
+      await walk(cwd)
       if (matches.length === 0)
         return { output: 'No files found matching pattern.' }
       let output = matches.join('\n')
@@ -359,17 +404,10 @@ const grepTool: Tool = {
     const cwd = (input.path as string) || process.cwd()
     const include = input.include as string | undefined
     try {
-      const args = ['--line-number', '--no-heading', '--color=never']
+      const args = ['rg', '--line-number', '--no-heading', '--color=never']
       if (include) args.push(`--glob=${include}`)
       args.push(pattern, cwd)
-      const proc = Bun.spawn(['rg', ...args], {
-        stdout: 'pipe',
-        stderr: 'pipe',
-        timeout: 15_000,
-      })
-      const stdout = await new Response(proc.stdout).text()
-      const stderr = await new Response(proc.stderr).text()
-      const exitCode = await proc.exited
+      const { stdout, stderr, exitCode } = await execCommand(args, 15_000)
       if (exitCode === 1) return { output: 'No matches found.' }
       if (exitCode !== 0 && exitCode !== 1)
         return { output: `grep error: ${stderr}`, isError: true }
