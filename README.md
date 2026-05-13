@@ -2,12 +2,12 @@
 
 Tiny, extensible AI agent. The core is just the loop and types. Everything else is an extension.
 
-> Requires a TypeScript-capable runtime (Bun, tsx, ts-node with ESM).
+> Runtime-agnostic — compiled ESM that works with Node.js, Deno, tsx, ts-node, and Bun.
 
 ## Usage
 
 ```bash
-bun add @xy69/tiny-agent
+npm install @xy69/tiny-agent
 ```
 
 ```typescript
@@ -55,7 +55,7 @@ The `Agent` class takes a provider, a system prompt, and an array of extensions.
 
 ## Architecture
 
-The core (`packages/core/`) has three files:
+The core (`tiny-agent/src/core/`) has three files:
 
 - **`types.ts`** — `Message`, `Tool`, `Provider`, `Extension`, `MessageStore` interfaces
 - **`agent.ts`** — The loop: stream LLM → parse tool calls → run hooks → execute tools → repeat
@@ -90,7 +90,7 @@ Built-in:
 - **compactionExtension** — summarizes old messages when context fills up
 - **taskExtension** — delegates subtasks to isolated sub-agents
 
-See [`packages/core/README.md`](packages/core/README.md) for detailed extension docs.
+See [`tiny-agent/README.md`](tiny-agent/README.md) for detailed extension docs.
 
 ## Providers
 
@@ -116,13 +116,13 @@ interface MessageStore {
 }
 ```
 
-The included `Session` class (`packages/session/`) is a JSONL-based implementation. You can swap it for Redis, SQLite, a database — whatever fits your use case.
+The included `Session` class (`@xy69/tiny-agent/session`) is a JSONL-based implementation. You can swap it for Redis, SQLite, a database — whatever fits your use case.
 
 ## Running the Examples
 
 ```bash
 bun install
-cd packages/examples/cli   # or web
+cd examples/cli   # or examples/web
 cp agent.config.example.json agent.config.json
 # Add your API key and model
 
@@ -134,6 +134,7 @@ See each example's README for details.
 ## Development
 
 ```bash
+bun run build        # Build ESM + declarations via tsdown
 bun run typecheck    # Type-check all packages
 bun run format       # Prettier
 ```
