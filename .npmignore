@@ -1,9 +1,0 @@
-tsconfig.tsbuildinfo
-*.test.ts
-packages/examples
-.sessions
-.vscode
-.prettierrc
-agent.config.json
-bun.lock
-tsconfig.base.json

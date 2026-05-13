@@ -1,42 +1,11 @@
 {
-  "name": "@xy69/tiny-agent",
-  "version": "0.1.1",
-  "description": "Tiny, extensible AI agent.",
+  "name": "tiny-agent-monorepo",
+  "private": true,
   "type": "module",
-  "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/xy69/tiny-agent"
-  },
-  "keywords": ["ai", "agent", "llm", "coding-agent", "openai", "anthropic", "tools"],
-  "exports": {
-    ".": {
-      "bun": "./packages/core/src/index.ts",
-      "types": "./dist/core.d.mts",
-      "default": "./dist/core.mjs"
-    },
-    "./session": {
-      "bun": "./packages/session/src/index.ts",
-      "types": "./dist/session.d.mts",
-      "default": "./dist/session.mjs"
-    },
-    "./providers": {
-      "bun": "./packages/providers/index.ts",
-      "types": "./dist/providers.d.mts",
-      "default": "./dist/providers.mjs"
-    },
-    "./extensions": {
-      "bun": "./packages/extensions/index.ts",
-      "types": "./dist/extensions.d.mts",
-      "default": "./dist/extensions.mjs"
-    }
-  },
   "workspaces": {
     "packages": [
-      "packages/*",
-      "packages/extensions/*",
-      "packages/providers/*",
-      "packages/examples/*"
+      "tiny-agent",
+      "examples/*"
     ],
     "catalog": {
       "typescript": "^6.0.3",
@@ -47,27 +16,14 @@
       "openai": "^6.37.0"
     }
   },
-  "dependencies": {
-    "@anthropic-ai/sdk": "catalog:",
-    "openai": "catalog:"
-  },
   "devDependencies": {
-    "@types/bun": "catalog:",
-    "prettier": "catalog:",
-    "tsdown": "catalog:",
-    "typescript": "catalog:"
+    "prettier": "catalog:"
   },
   "scripts": {
-    "build": "tsdown",
-    "dev": "bun run packages/examples/cli/src/index.ts",
-    "dev:web": "bun run packages/examples/web/src/server.ts",
+    "build": "bun run --filter '@xy69/tiny-agent' build",
+    "dev": "bun run examples/cli/src/index.ts",
+    "dev:web": "bun run examples/web/src/server.ts",
     "typecheck": "bun run --filter '*' typecheck",
-    "format": "prettier --write \"packages/**/*.ts\""
-  },
-  "files": [
-    "dist",
-    "packages/*/src",
-    "packages/providers",
-    "packages/extensions"
-  ]
+    "format": "prettier --write \"tiny-agent/**/*.ts\" \"examples/**/*.ts\""
+  }
 }

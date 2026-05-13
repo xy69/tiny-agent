@@ -1,0 +1,17 @@
+{
+  "name": "@tiny-agent/example-web",
+  "version": "0.0.1",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "bun run src/server.ts",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@xy69/tiny-agent": "workspace:*"
+  },
+  "devDependencies": {
+    "typescript": "catalog:",
+    "@types/bun": "catalog:"
+}
+}
