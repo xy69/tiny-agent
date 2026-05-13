@@ -1,5 +1,5 @@
-export { toolsExtension } from './tools'
 export { compactionExtension } from './compaction'
+export type { CompactableStore } from './compaction'
 export { loopDetectionExtension } from './loop-detection'
 export { taskExtension } from './task'
-export type { CompactableStore } from './compaction'
+export { toolsExtension } from './tools'

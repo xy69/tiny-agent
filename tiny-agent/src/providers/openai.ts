@@ -1,5 +1,10 @@
 import OpenAI from 'openai'
-import type { Provider, ProviderChunk, Message, ToolDefinition } from '../core/types'
+import type {
+  Message,
+  Provider,
+  ProviderChunk,
+  ToolDefinition,
+} from '../core/types'
 
 export class OpenAIProvider implements Provider {
   name = 'openai'

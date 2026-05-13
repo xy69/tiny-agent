@@ -1,12 +1,12 @@
 import type {
-  Provider,
+  Extension,
   Message,
   MessageStore,
+  Provider,
+  StreamEvent,
   Tool,
   ToolCall,
   ToolDefinition,
-  StreamEvent,
-  Extension,
 } from './types'
 
 export interface AgentOptions {

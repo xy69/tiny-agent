@@ -1,11 +1,10 @@
 import { Agent } from '@xy69/tiny-agent'
-import type { StreamEvent } from '@xy69/tiny-agent'
-import { OpenAIProvider } from '@xy69/tiny-agent/providers'
 import {
-  toolsExtension,
   loopDetectionExtension,
+  toolsExtension,
 } from '@xy69/tiny-agent/extensions'
-import { readFileSync, existsSync } from 'fs'
+import { OpenAIProvider } from '@xy69/tiny-agent/providers'
+import { existsSync, readFileSync } from 'fs'
 import { join } from 'path'
 
 const PORT = 3000

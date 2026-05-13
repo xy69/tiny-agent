@@ -1,4 +1,4 @@
-import type { Extension, ToolCall, Message } from '../core/types'
+import type { Extension, Message, ToolCall } from '../core/types'
 
 /** Extension that detects repeated identical tool calls and breaks the loop */
 export function loopDetectionExtension(threshold = 3): Extension {

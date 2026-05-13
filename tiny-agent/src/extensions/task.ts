@@ -1,5 +1,5 @@
-import type { Extension, Provider, Tool } from '../core/types'
 import { Agent } from '../core/agent'
+import type { Extension, Provider, Tool } from '../core/types'
 
 /** Extension that provides a task delegation tool using isolated sub-agents */
 export function taskExtension(opts: {

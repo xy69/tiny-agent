@@ -1,5 +1,10 @@
 import Anthropic from '@anthropic-ai/sdk'
-import type { Provider, ProviderChunk, Message, ToolDefinition } from '../core/types'
+import type {
+  Message,
+  Provider,
+  ProviderChunk,
+  ToolDefinition,
+} from '../core/types'
 
 export class AnthropicProvider implements Provider {
   name = 'anthropic'

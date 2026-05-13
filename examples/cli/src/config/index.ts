@@ -1,6 +1,6 @@
-import { readFileSync, existsSync } from 'fs'
-import { join, resolve } from 'path'
+import { existsSync, readFileSync } from 'fs'
 import { homedir } from 'os'
+import { join, resolve } from 'path'
 import { getProviderKey } from './auth'
 
 export interface ProviderConfig {

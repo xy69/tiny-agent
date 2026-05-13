@@ -1,5 +1,5 @@
 import { createInterface } from 'readline'
-import { setProviderKey, listProviders, removeProvider } from './auth'
+import { listProviders, removeProvider, setProviderKey } from './auth'
 
 const PROVIDERS = [
   { id: 'openai', name: 'OpenAI (or compatible)', envHint: 'OPENAI_API_KEY' },

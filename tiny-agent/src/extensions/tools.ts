@@ -1,7 +1,7 @@
-import type { Extension, Tool } from '../core/types'
+import { spawn } from 'child_process'
 import { readFile } from 'fs/promises'
 import { resolve } from 'path'
-import { spawn } from 'child_process'
+import type { Extension, Tool } from '../core/types'
 
 const MAX_OUTPUT = 50_000
 

@@ -1,9 +1,9 @@
 import {
   appendFileSync,
-  readFileSync,
   existsSync,
   mkdirSync,
   readdirSync,
+  readFileSync,
 } from 'fs'
 import { join } from 'path'
 import type { Message, MessageStore } from './core/types'

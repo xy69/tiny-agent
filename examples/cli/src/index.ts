@@ -1,27 +1,27 @@
-import { readFileSync, existsSync } from 'fs'
-import { join } from 'path'
-import { Agent } from '@xy69/tiny-agent'
 import type { Provider } from '@xy69/tiny-agent'
-import { Session } from '@xy69/tiny-agent/session'
-import { OpenAIProvider, AnthropicProvider } from '@xy69/tiny-agent/providers'
+import { Agent } from '@xy69/tiny-agent'
 import {
-  toolsExtension,
-  loopDetectionExtension,
   compactionExtension,
+  loopDetectionExtension,
   taskExtension,
+  toolsExtension,
 } from '@xy69/tiny-agent/extensions'
+import { AnthropicProvider, OpenAIProvider } from '@xy69/tiny-agent/providers'
+import { Session } from '@xy69/tiny-agent/session'
+import { existsSync, readFileSync } from 'fs'
+import { join } from 'path'
+import { loadConfig, resolveApiKey, validateConfig } from './config'
+import { connectCommand } from './config/connect'
 import {
-  Spinner,
   MarkdownRenderer,
-  renderToolStart,
-  renderToolResult,
-  renderUsage,
   renderError,
   renderPrompt,
   renderSessionHeader,
+  renderToolResult,
+  renderToolStart,
+  renderUsage,
+  Spinner,
 } from './render'
-import { loadConfig, resolveApiKey, validateConfig } from './config'
-import { connectCommand } from './config/connect'
 
 const SESSIONS_DIR = join(process.cwd(), '.sessions')
 
