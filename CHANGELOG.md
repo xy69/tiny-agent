@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.2.0 (2026-05-14)
+
+### Breaking Changes
+
+- **Removed `@xy69/tiny-agent/providers` barrel export.** Import providers individually:
+  - `import { OpenAIProvider } from '@xy69/tiny-agent/providers/openai'`
+  - `import { AnthropicProvider } from '@xy69/tiny-agent/providers/anthropic'`
+
+This ensures consumers only pull in the SDK they actually use, avoiding missing peer dependency errors at runtime.
+
 ## 0.1.4 (2026-05-13)
 
 ### Docs
