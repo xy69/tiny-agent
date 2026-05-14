@@ -18,9 +18,13 @@
       "types": "./dist/session.d.mts",
       "default": "./dist/session.mjs"
     },
-    "./providers": {
-      "types": "./dist/providers.d.mts",
-      "default": "./dist/providers.mjs"
+    "./providers/openai": {
+      "types": "./dist/providers/openai.d.mts",
+      "default": "./dist/providers/openai.mjs"
+    },
+    "./providers/anthropic": {
+      "types": "./dist/providers/anthropic.d.mts",
+      "default": "./dist/providers/anthropic.mjs"
     },
     "./extensions": {
       "types": "./dist/extensions.d.mts",

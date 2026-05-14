@@ -6,7 +6,8 @@ import {
   taskExtension,
   toolsExtension,
 } from '@xy69/tiny-agent/extensions'
-import { AnthropicProvider, OpenAIProvider } from '@xy69/tiny-agent/providers'
+import { AnthropicProvider } from '@xy69/tiny-agent/providers/anthropic'
+import { OpenAIProvider } from '@xy69/tiny-agent/providers/openai'
 import { Session } from '@xy69/tiny-agent/session'
 import { existsSync, readFileSync } from 'fs'
 import { join } from 'path'

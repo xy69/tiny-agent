@@ -3,7 +3,7 @@ import {
   loopDetectionExtension,
   toolsExtension,
 } from '@xy69/tiny-agent/extensions'
-import { OpenAIProvider } from '@xy69/tiny-agent/providers'
+import { OpenAIProvider } from '@xy69/tiny-agent/providers/openai'
 import { existsSync, readFileSync } from 'fs'
 import { join } from 'path'
 

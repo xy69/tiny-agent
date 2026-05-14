@@ -8,7 +8,6 @@ import type {
   ProviderChunk,
   StreamEvent,
   Tool,
-  ToolDefinition,
 } from '../src/core/types'
 
 /** Creates a mock provider that yields predetermined chunks */
