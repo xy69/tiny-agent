@@ -1,0 +1,30 @@
+# Line endings: LF everywhere, in the repo and in the working tree.
+#
+# This repo is one of eleven in the pwas workspace, and all of them standardise
+# on LF so that a diff, a patch, or anything piped into a POSIX shell behaves
+# identically on Windows and everywhere else.
+#
+# `text=auto` lets git detect binary content and leave it alone. The explicit
+# binary list below is belt-and-braces for anything whose extension it has
+# never seen.
+* text=auto eol=lf
+
+*.png    binary
+*.jpg    binary
+*.jpeg   binary
+*.gif    binary
+*.ico    binary
+*.webp   binary
+*.woff   binary
+*.woff2  binary
+*.pdf    binary
+*.zip    binary
+*.gz     binary
+*.xlsx   binary
+*.sqlite binary
+*.db     binary
+
+# Windows batch files are the one deliberate exception: cmd.exe's parser is not
+# reliably LF-safe, so these stay CRLF even in an LF workspace.
+*.bat text eol=crlf
+*.cmd text eol=crlf
